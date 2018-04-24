@@ -1,0 +1,38 @@
+<style>
+.register, .login {
+        display: inline-block;
+        vertical-align: top;
+        width: 280px;
+        border: 2px solid black;
+        padding: 0 20px 20px 20px;
+    }
+    .login {
+        margin-left: 20px;
+    }
+</style>
+<div class="register">
+    <h2>Register</h2>
+    <form action="/register" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <p><label for="first_name">First Name</label>
+        <input type="text" name="user[first_name]" id="first_name"></p>
+        <p><label for="last_name">Last Name</label>
+        <input type="text" name="user[last_name]" id="last_name"></p>
+        <p><label for="email">Email</label>
+        <input type="text" name="user[email]" id="email"></p>
+        <p><label for="password">Password</label>
+        <input type="password" name="user[password]" id="password"></p>
+        <input type="submit" value="Register">
+    </form>
+</div>
+<div class="login">
+    <h2>Login</h2>
+    <form action="/login" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <p><label for="email">Email</label>
+        <input type="text" name="user[email]" id="email"></p>
+        <p><label for="password">Password</label>
+        <input type="password" name="user[password]" id="password"></p>
+        <input type="submit" value="Login">
+    </form>
+</div>
