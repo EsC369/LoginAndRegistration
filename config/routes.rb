@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'users#index'
   post '/register' => 'users#register'
   post '/login' => 'users#login'
-  get '/testindex' => "users#test" # delete this test
+  get '/testindex' => "users#something" # delete this test
   # get '/groups' => 'groups#groups'
   delete '/logout' => 'users#logout'
 

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 
     #delete this test!
-    def test
+    def something
     end
 
     def index
