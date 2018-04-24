@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
 
-
-    #delete this test!
-    def something
-    end
-
     def index
         session[:user_id] = nil
     end
@@ -13,7 +8,7 @@ class UsersController < ApplicationController
         user = User.new(user_params)
         if user.save
             session[:user_id] = user.id
-            redirect_to "/testindex"
+            redirect_to "/songs"
             # redirect_to groups_path
         else
             flash[:errors] = user.errors.full_messages
@@ -25,13 +20,18 @@ class UsersController < ApplicationController
         @usr = User.find_by_email(params[:user][:email]).try(:authenticate, params[:user][:password])
         if @usr
             session[:user_id] = @usr.id
-            redirect_to "/testindex"
+            redirect_to "/songs"
             # redirect_to groups_path
             
         else 
             flash[:errors] = ["Invalid combination"]
             redirect_to root_path
         end
+    end
+
+    def show
+        @user = User.find(params[:user_id])
+        @playlist = User.find(params[:user_id]).songs_added
     end
 
     def result

@@ -1,0 +1,72 @@
+<style>
+.listingsBorder2{
+    border-style: solid;
+    border-width: 2px;
+    border-color: red;
+}
+.listingsBorder{
+    border-style: solid;
+    border-width: 2px;
+    border-color: red;
+}
+.allSongs{
+    color:red;
+}
+.time{
+    color:#FF00FF;
+    font-weight: bold;
+}
+</style>
+
+<h2 style="color:#008000;font-size:25px;font-weight:bold;"> Welcome, <%= current_user.first_name %> <%= current_user.last_name %></h2>
+
+<h3 style="color:#0000FF;font-size:17px;font-weight:bold;"> All The Songs In Our Hub:</h3>
+<br>
+<div class="listingsBorder">
+    <% @songs.each do |song| %>
+        <%# Destroy relations to owner: %>
+        <% if current_user.id == song.user.id %>
+            <a href="songs/<%= song.id %>/destroy" data-method="delete" style="color: black; text-decoration: none; font-weight: bold;">[Delete song]</a>
+        <% end %>
+        <%# To check if added and add relations %>
+        
+        <form action "/songs/<%= song.id %>/add" method ="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <a href="/songs/<%= song.id %>/add" data-method="post"><button>add song</button></a>
+        </form>
+        <%# <% end %> 
+        <br>
+
+        <%# Show All songs: %>
+        <div class="allSongs">
+            <p>Title: </p>
+            <a href="songs/<%= song.id %>"><%= song.name %></a> 
+            <p>By: <%= song.description %></p>
+        </div>
+        
+        <%# Created at: %>
+        <div class="time">
+            <%= time_ago_in_words(song.created_at) %> ago
+            <br> 
+            last updated: <%= time_ago_in_words(song.updated_at) %> ago </small>
+        </div>
+        <%# Show all People who have added: %>
+        <p style="color:blue;font-size:17px;font-weight:bold;"> No. Of Times Added <%= song.name %>: <%= song.adds.count %></p> 
+        <% end %>
+</div>
+
+
+<%# Add New Song: %>
+<form action="/songs/create" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <h2>Add A Song:</h2>
+    <p>
+        <label for ="name">Song Name</label>
+        <input type="text" name ="song[name]" id="name">
+    </p>
+    <p>
+        <label for ="description">Artist</label>
+        <input type="text" name="song[description]" id="description">
+    </p>
+    <input type="submit" value="Add Song">
+</form>

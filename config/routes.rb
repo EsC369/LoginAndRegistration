@@ -1,11 +1,19 @@
 Rails.application.routes.draw do
 
+  # Users
   root 'users#index'
   post '/register' => 'users#register'
   post '/login' => 'users#login'
-  get '/testindex' => "users#test" # delete this test
-  # get '/groups' => 'groups#groups'
+  get '/songs' => 'songs#index'
   delete '/logout' => 'users#logout'
+  get "users/:user_id/show" => "users#show"
+
+  # Songs
+  post "songs/create" => "songs#create"
+  delete "songs/:song_id/destroy" => "songs#destroy"
+  get "songs/:song_id" => "songs#show"
+  post "songs/:song_id/add" => "songs#add"
+  post "songs/:song_id/unadd" => "songs#unadd"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

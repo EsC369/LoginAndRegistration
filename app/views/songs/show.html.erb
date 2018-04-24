@@ -1,0 +1,24 @@
+<br>
+<a href ="/songs">Go Back</a>
+<hr>
+<h2>
+    <h2> Title Of Song:</h2>
+    <h3><%= @song.name %></h3>
+</h2>
+<h2> By: </h2>
+<h2><%= @song.description %></h2>
+<hr>
+<h4>
+    Added By:
+    <% if current_user.id == @song.user.id %>
+        You!
+    <% else %>
+        <%= @song.user.first_name %> <%= @song.user.last_name %>
+    <% end %>
+</h4>
+<h3>Others Who Added: <%= @song.name %> -- <%= @song.description %></h3>
+<% @song.users_added.order("created_at DESC").each do |user| %>
+    <a href="/users/<%= user.id %>/show"><%= user.first_name %> <%= user.last_name %></a> 
+    <br>
+    <br>
+<% end %>
